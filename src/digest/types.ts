@@ -23,12 +23,16 @@ export type DigestRow = {
   lastAt: string;
 };
 
-// Rows sorted by job. `badLines` counts lines that didn't parse; they are never thrown.
+// Rows sorted by job. `counts` tallies parsed lines by status (the board shows them).
+// `badLines` counts lines that didn't parse; they are never thrown.
 export type Digest = {
   night: string;
   rows: DigestRow[];
+  counts: Record<RunStatus, number>;
   badLines: number;
 };
+
+// The reader lives in src/digest/read.ts: `export const readNight: ReadNight`.
 
 // Returns null when runs/<night>.jsonl doesn't exist (the routes answer 404).
 // An empty file gives `rows: []`.
